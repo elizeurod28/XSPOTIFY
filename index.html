@@ -89,3 +89,149 @@
 
 </body>
 </html>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 250px;
+    background-color: #000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar .logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.menu ul {
+    list-style: none;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 5px;
+    cursor: pointer;
+    color: #b3b3b3;
+    transition: 0.3s;
+}
+
+.menu li:hover {
+    color: white;
+}
+
+/* PLAYLIST AREA */
+.playlist-section {
+    color: #b3b3b3;
+}
+
+/* CONTEÚDO */
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, #2a2a2a, #121212);
+}
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #181818;
+    padding: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color .3s;
+    position: relative;
+}
+
+.card:hover {
+    background-color: #282828;
+}
+
+.card .img {
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.card .play {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #1db954;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    display: none;
+    cursor: pointer;
+}
+
+.card:hover .play {
+    display: block;
+}
+
+.card p {
+    color: #b3b3b3;
+    margin-top: 4px;
+}
+
+/* PLAYER FIXO */
+.player {
+    height: 90px;
+    background-color: #181818;
+    border-top: 1px solid #282828;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.playbtn {
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.volume {
+    display: flex;
+    align-items: center;
+}
+
+</style>
