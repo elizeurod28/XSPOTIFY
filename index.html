@@ -1,37 +1,91 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Clone</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+    <link rel="stylesheet" href="style.css">
 
+    <!-- Ícones Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 <body>
 
-<div class="sidebar">
-    <h2>MyMusic</h2>
-    <a href="index.html">🏠 Início</a>
-    <a href="artist.html">🎤 Artista</a>
-    <a href="upload.html">⬆ Enviar Música</a>
-    <a href="login.html">🔐 Login</a>
-</div>
+    <div class="container">
 
-<div class="content">
-    <h1>🎧 Músicas enviadas</h1>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">Spotify</div>
 
-    <div id="playlist"></div>
+            <nav class="menu">
+                <ul>
+                    <li><span class="material-icons">home</span> Início</li>
+                    <li><span class="material-icons">search</span> Buscar</li>
+                    <li><span class="material-icons">library_music</span> Sua Biblioteca</li>
+                </ul>
+            </nav>
 
-    <div id="player-container">
-        <p id="player-title">Nenhuma música tocando</p>
-        <audio id="audioPlayer" controls></audio>
+            <div class="playlist-section">
+                <h4>Playlists</h4>
+                <p>Crie sua primeira playlist</p>
+                <p>As que você criar vão aparecer aqui</p>
+            </div>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="content">
+            <h2>Playlists populares</h2>
+
+            <div class="album-grid">
+
+                <div class="card">
+                    <div class="img">
+                        <img src="https://i.imgur.com/kt7QpQf.jpeg">
+                        <button class="play"><span class="material-icons">play_arrow</span></button>
+                    </div>
+                    <h3>Trap Hits</h3>
+                    <p>As melhores do trap de 2024</p>
+                </div>
+
+                <div class="card">
+                    <div class="img">
+                        <img src="https://i.imgur.com/VH1Qf9n.jpeg">
+                        <button class="play"><span class="material-icons">play_arrow</span></button>
+                    </div>
+                    <h3>Relax Vibes</h3>
+                    <p>Pra desestressar</p>
+                </div>
+
+                <div class="card">
+                    <div class="img">
+                        <img src="https://i.imgur.com/olXnJKx.jpeg">
+                        <button class="play"><span class="material-icons">play_arrow</span></button>
+                    </div>
+                    <h3>Focado no Trabalho</h3>
+                    <p>Músicas instrumentais</p>
+                </div>
+
+            </div>
+        </main>
+
     </div>
-</div>
 
-<script type="module" src="js/app.js"></script>
+    <!-- PLAYER FIXO -->
+    <footer class="player">
+        <div class="info">
+            <p>Música não selecionada</p>
+        </div>
+
+        <div class="controls">
+            <span class="material-icons">skip_previous</span>
+            <span class="material-icons playbtn">play_circle_filled</span>
+            <span class="material-icons">skip_next</span>
+        </div>
+
+        <div class="volume">
+            <span class="material-icons">volume_up</span>
+        </div>
+    </footer>
 
 </body>
 </html>
-
-<audio id="audioPlayer" controls></audio>
-<p id="player-title">Nenhuma música tocando</p>
