@@ -2,38 +2,44 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Home – MyMusic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<div class="sidebar">
-    <h2 class="logo">MyMusic</h2>
-    <a href="index.html">Início</a>
-    <a href="upload.html">Enviar Música</a>
-    <a href="artist.html">Artista</a>
-    <a href="profile.html">Perfil</a>
-</div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>MyMusic</h2>
+        <a href="index.html">🏠 Início</a>
+        <a href="artist.html">🎤 Artista</a>
+        <a href="upload.html">⬆ Enviar Música</a>
+        <a href="login.html">🔐 Login</a>
+    </div>
 
-<div class="content">
-    <h1>Recomendações</h1>
-    <div id="playlist" class="playlist"></div>
-</div>
+    <!-- Conteúdo -->
+    <div class="content">
+        <h1>🎧 Descubra músicas</h1>
 
-<div id="player" class="player">
-    <div class="player-left">
-        <img id="player-cover" src="assets/default.jpg">
-        <div>
-            <p id="player-title">Nenhuma música</p>
+        <div class="playlist">
+            <div class="music-card" onclick="playMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'Exemplo 1', 'Artista Desconhecido')">
+                <img src="https://i.imgur.com/kt7QpQf.jpeg">
+                <p>Exemplo 1</p>
+            </div>
+
+            <div class="music-card" onclick="playMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'Exemplo 2', 'Artista X')">
+                <img src="https://i.imgur.com/VH1Qf9n.jpeg">
+                <p>Exemplo 2</p>
+            </div>
         </div>
     </div>
 
-    <div class="player-center">
-        <button onclick="togglePlay()" id="play-btn">▶</button>
+    <!-- Player fixo -->
+    <div id="player-container">
+        <p id="player-title">Nenhuma música tocando</p>
+        <audio id="audio-player" controls></audio>
     </div>
-</div>
 
-<script src="js/app.js"></script>
 <script src="js/player.js"></script>
 </body>
 </html>
