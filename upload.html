@@ -1,39 +1,23 @@
-async function uploadMusic() {
-    const file = document.getElementById("file").files[0];
-    const name = document.getElementById("music-name").value;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
 
-    if (!file || name === "") {
-        alert("Preencha tudo!");
-        return;
-    }
+<body>
 
-    // Upload Supabase
-    const fileName = Date.now() + "_" + file.name;
+<div class="content">
+    <h1>⬆ Enviar Música</h1>
 
-    const { data, error } = await supabase.storage
-        .from("musics")
-        .upload(fileName, file);
+    <input type="file" id="fileInput">
+    <button onclick="uploadMusic()">Enviar</button>
 
-    if (error) {
-        alert("Erro no upload: " + error.message);
-        return;
-    }
+    <p id="status"></p>
+</div>
 
-    // URL pública
-    const { data: urlData } = supabase.storage
-        .from("musics")
-        .getPublicUrl(fileName);
+<script type="module" src="js/app.js"></script>
 
-    const url = urlData.publicUrl;
-
-    // Salvar no Firebase
-    await db.collection("musics").add({
-        name: name,
-        url: url,
-        cover: "assets/default.jpg",
-        artistId: "default",
-        createdAt: Date.now()
-    });
-
-    alert("Música enviada e salva no banco!");
-}
+</body>
+</html>
