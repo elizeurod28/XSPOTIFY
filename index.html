@@ -6,47 +6,29 @@
     <title>Spotify Clone</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-<h2>Músicas recentes</h2>
 
-<div id="playlist"></div>
+<div class="sidebar">
+    <h2>MyMusic</h2>
+    <a href="index.html">🏠 Início</a>
+    <a href="artist.html">🎤 Artista</a>
+    <a href="upload.html">⬆ Enviar Música</a>
+    <a href="login.html">🔐 Login</a>
+</div>
 
-<audio id="audioPlayer" controls style="width: 100%; margin-top: 20px;">
-    Seu navegador não suporta áudio.
-</audio>
+<div class="content">
+    <h1>🎧 Músicas enviadas</h1>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>MyMusic</h2>
-        <a href="index.html">🏠 Início</a>
-        <a href="artist.html">🎤 Artista</a>
-        <a href="upload.html">⬆ Enviar Música</a>
-        <a href="login.html">🔐 Login</a>
-    </div>
+    <div id="playlist"></div>
 
-    <!-- Conteúdo -->
-    <div class="content">
-        <h1>🎧 Descubra músicas</h1>
-
-        <div class="playlist">
-            <div class="music-card" onclick="playMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'Exemplo 1', 'Artista Desconhecido')">
-                <img src="https://i.imgur.com/kt7QpQf.jpeg">
-                <p>Exemplo 1</p>
-            </div>
-
-            <div class="music-card" onclick="playMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'Exemplo 2', 'Artista X')">
-                <img src="https://i.imgur.com/VH1Qf9n.jpeg">
-                <p>Exemplo 2</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Player fixo -->
     <div id="player-container">
         <p id="player-title">Nenhuma música tocando</p>
-        <audio id="audio-player" controls></audio>
+        <audio id="audioPlayer" controls></audio>
     </div>
+</div>
 
-<script src="js/player.js"></script>
+<script type="module" src="js/app.js"></script>
+
 </body>
 </html>
