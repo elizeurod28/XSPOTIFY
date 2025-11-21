@@ -1,26 +1,9 @@
-let audio = new Audio();
-let isPlaying = false;
+function playMusic(url, title, artist) {
+    const player = document.getElementById("audio-player");
+    const titleBox = document.getElementById("player-title");
 
-function playMusic(url, title, cover) {
-    audio.src = url;
-    document.getElementById("player-title").innerText = title;
-    document.getElementById("player-cover").src = cover;
+    player.src = url;
+    player.play();
 
-    audio.play();
-    isPlaying = true;
-
-    document.getElementById("play-btn").innerText = "⏸";
+    titleBox.innerText = `${title} — ${artist}`;
 }
-
-function togglePlay() {
-    if (isPlaying) {
-        audio.pause();
-        document.getElementById("play-btn").innerText = "▶";
-    } else {
-        audio.play();
-        document.getElementById("play-btn").innerText = "⏸";
-    }
-
-    isPlaying = !isPlaying;
-}
-onclick="playMusic(url, title, cover)"
