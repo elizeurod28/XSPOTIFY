@@ -31,3 +31,35 @@ window.register = function() {
     .then(() => alert("Conta criada!"))
     .catch(e => alert(e.message));
 };
+import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+const supabaseUrl = "https://hwgzbvxhoamxwodhqusl.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3Z3pidnhob2FteHdvZGhxdXNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2ODM2MjUsImV4cCI6MjA3OTI1OTYyNX0.9U8lFXtGgRYR0QHZDtnmXrxcEshJhxmVDilwIfHxdnE";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+window.uploadMusic = async function () {
+    const fileInput = document.getElementById("fileInput");
+    const status = document.getElementById("status");
+
+    if (fileInput.files.length === 0) {
+        status.innerText = "Selecione um arquivo!";
+        return;
+    }
+
+    const file = fileInput.files[0];
+
+    status.innerText = "Enviando...";
+
+    const { data, error } = await supabase
+        .storage
+        .from("musicas")
+        .upload(`uploads/${Date.now()}_${file.name}`, file);
+
+    if (error) {
+        console.error(error);
+        status.innerText = "Erro ao enviar!";
+        return;
+    }
+
+    status.innerText = "Música enviada com sucesso!";
+};
