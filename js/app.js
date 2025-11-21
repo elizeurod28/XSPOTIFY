@@ -78,6 +78,56 @@ window.uploadMusic = async function () {
         status.innerText = "Erro ao enviar: " + error.message;
         return;
     }
+    async function loadMusics() {
+    const playlistDiv = document.getElementById("playlist");
+    playlistDiv.innerHTML = "Carregando...";
+
+    const { data, error } = await supabase
+        .storage
+        .from("musicas")
+        .list("uploads", { limit: 100 });
+
+    if (error) {
+        console.error(error);
+        playlistDiv.innerHTML = "Erro ao carregar músicas.";
+        return;
+    }
+
+    playlistDiv.innerHTML = "";
+
+    data.forEach(file => {
+        const fileName = file.name;
+
+        // Criar item da playlist
+        const item = document.createElement("div");
+        item.classList.add("music-item");
+
+        item.innerHTML = `
+            <p>${fileName}</p>
+            <button onclick="playMusic('${fileName}')">▶️ Tocar</button>
+        `;
+
+        playlistDiv.appendChild(item);
+    });
+}
+
+// Função para tocar música
+async function playMusic(fileName) {
+    const { data } = supabase
+        .storage
+        .from("musicas")
+        .getPublicUrl(`uploads/${fileName}`);
+
+    const audio = document.getElementById("audioPlayer");
+    audio.src = data.publicUrl;
+    audio.play();
+}
+
+// Carregar músicas automaticamente ao abrir a página
+if (window.location.pathname.includes("index.html")) {
+    loadMusics();
+}
+
 
     status.innerText = "Música enviada com sucesso!";
 };
