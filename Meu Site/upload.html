@@ -1,0 +1,39 @@
+async function uploadMusic() {
+    const file = document.getElementById("file").files[0];
+    const name = document.getElementById("music-name").value;
+
+    if (!file || name === "") {
+        alert("Preencha tudo!");
+        return;
+    }
+
+    // Upload Supabase
+    const fileName = Date.now() + "_" + file.name;
+
+    const { data, error } = await supabase.storage
+        .from("musics")
+        .upload(fileName, file);
+
+    if (error) {
+        alert("Erro no upload: " + error.message);
+        return;
+    }
+
+    // URL pública
+    const { data: urlData } = supabase.storage
+        .from("musics")
+        .getPublicUrl(fileName);
+
+    const url = urlData.publicUrl;
+
+    // Salvar no Firebase
+    await db.collection("musics").add({
+        name: name,
+        url: url,
+        cover: "assets/default.jpg",
+        artistId: "default",
+        createdAt: Date.now()
+    });
+
+    alert("Música enviada e salva no banco!");
+}
