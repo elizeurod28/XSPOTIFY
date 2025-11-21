@@ -37,16 +37,14 @@ window.register = function () {
 };
 
 
-// ---------------- SUPABASE ----------------
+// ------------- SUPABASE ------------------
 import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
 const supabaseUrl = "https://hwgzbvxhoamxwodhqusl.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3Z3pidnhob2FteHdvZGhxdXNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2ODM2MjUsImV4cCI6MjA3OTI1OTYyNX0.9U8lFXtGgRYR0QHZDtnmXrxcEshJhxmVDilwIfHxdnE";
-
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
-// ---------------- UPLOAD MÚSICA ----------------
+// ================== UPLOAD ==================
 window.uploadMusic = async function () {
     const fileInput = document.getElementById("fileInput");
     const status = document.getElementById("status");
@@ -59,25 +57,25 @@ window.uploadMusic = async function () {
     const file = fileInput.files[0];
     status.innerText = "Enviando...";
 
-    const path = `uploads/${Date.now()}_${file.name}`;
-
-    const { error } = await supabase.storage.from("musicas").upload(path, file);
+    const { data, error } = await supabase
+        .storage
+        .from("musicas")
+        .upload(`uploads/${Date.now()}_${file.name}`, file);
 
     if (error) {
+        console.error(error);
         status.innerText = "Erro ao enviar: " + error.message;
         return;
     }
 
     status.innerText = "Música enviada!";
-
-    loadMusics(); // recarrega lista
+    loadMusics();
 };
 
-
-// ---------------- CARREGAR MÚSICAS NA HOME ----------------
+// ================== LISTAR MÚSICAS ==================
 async function loadMusics() {
     const playlistDiv = document.getElementById("playlist");
-    if (!playlistDiv) return;
+    if (!playlistDiv) return; // evita erro em páginas que não têm playlist
 
     playlistDiv.innerHTML = "Carregando...";
 
@@ -93,36 +91,36 @@ async function loadMusics() {
 
     playlistDiv.innerHTML = "";
 
-    data.forEach(file => {
-        const fileName = file.name;
-        const url = supabase.storage.from("musicas").getPublicUrl(`uploads/${fileName}`).data.publicUrl;
+    for (const file of data) {
+        const { data: urlData } = supabase
+            .storage
+            .from("musicas")
+            .getPublicUrl(`uploads/${file.name}`);
 
-        const item = document.createElement("div");
-        item.classList.add("music-item");
+        const el = document.createElement("div");
+        el.classList.add("music-item");
 
-        item.innerHTML = `
-            <p>${fileName}</p>
-            <button onclick="playMusic('${url}')">▶️ Tocar</button>
+        el.innerHTML = `
+            <p>${file.name}</p>
+            <button onclick="playMusic('${urlData.publicUrl}')">▶️ Tocar</button>
         `;
 
-        playlistDiv.appendChild(item);
-    });
+        playlistDiv.appendChild(el);
+    }
 }
 
-
-// ---------------- PLAYER ----------------
+// ================== PLAYER ==================
 window.playMusic = function (url) {
     const audio = document.getElementById("audioPlayer");
     const title = document.getElementById("player-title");
 
     audio.src = url;
     audio.play();
-
-    title.innerText = "Tocando: " + url.split("/").pop();
+    title.textContent = "Tocando agora: " + url.split("/").pop();
 };
 
-
-// carregar automaticamente no index
-if (location.pathname.includes("index.html") || location.pathname === "/") {
+// Carregar músicas automaticamente no index
+if (window.location.pathname.includes("index")) {
     loadMusics();
 }
+
